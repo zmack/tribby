@@ -11,7 +11,8 @@ package {
 		}
 
     private function onDataLoaded(e:ContributionEvent):void {
-      trace(e.data);
+      var graph:LineGraph = new LineGraph(e.data);
+      addChild(graph);
     }
 	}
 }

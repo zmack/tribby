@@ -29,6 +29,7 @@ package  {
     }
 
     private function onLoaded(e:Event):void {
+      trace('data loaded');
       var decodedData:Array = parseData(_loader.data);
       var ce:ContributionEvent = new ContributionEvent(ContributionEvent.DATA_RECEIVED, decodedData);
 

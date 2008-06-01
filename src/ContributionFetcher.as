@@ -25,18 +25,33 @@ package  {
     }
 
     private function decodeString(s:String):uint {
-      return ( gitHubCharCodeToInt(s.charCodeAt(0)) * 52 + gitHubCharCodeToInt(s.charCodeAt(1)) )
+      //trace( s + ' => ' + (gitHubCharCodeToInt(s.charCodeAt(0)) * 62 + gitHubCharCodeToInt(s.charCodeAt(1))) )
+      return ( gitHubCharCodeToInt(s.charCodeAt(0)) * 64 + gitHubCharCodeToInt(s.charCodeAt(1)) )
     }
 
     private function gitHubCharCodeToInt(c:uint):uint {
-      var zero:uint = 65;
-      var value:uint = c - zero;
 
-      if ( value > 25 ) {
-        return value - 6;
-      } else {
-        return value;
-      }
+      // A = 0 .. Z = 25
+      if ( ( c >= 65 ) && ( c <= 90 ) )
+        return c - 65;
+      
+      // a = 26 .. z = 51
+      if ( ( c >= 97 ) && ( c <= 122 ) ) 
+        return c - 97 + 26;
+      
+      // 0 = 52 .. 9 = 61
+      if ( ( c >= 48 ) && ( c <= 57 ) ) 
+        return c - 48 + 52;
+      
+      // ! = 62
+      if ( c == 33 ) 
+        return 62;
+
+      // - = 63
+      if ( c == 45 ) 
+        return 63;
+
+      return 0; // eeh, dunno =(
     }
 	}
 }

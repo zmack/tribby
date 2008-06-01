@@ -1,16 +1,38 @@
 package  {
+  import flash.events.Event;
+  import flash.events.EventDispatcher;
+  import flash.net.URLLoader;
+  import flash.net.URLRequest;
 	
-	public class ContributionFetcher {
-		
+	public class ContributionFetcher extends EventDispatcher {
+		private var _loader:URLLoader;
+    
 		public function ContributionFetcher() {
+      _loader = new URLLoader();
+      _loader.addEventListener(Event.COMPLETE, onLoaded);
 		} 
+
+    public function loadProject(participationGraphURL:String):void {
+      var request:URLRequest = new URLRequest(participationGraphURL);
+      
+      try {
+        _loader.load(request);
+      } catch (e:Error) {
+        trace("Failed miserably");
+      }
+    }
 
     public function parseData(data:String):Array {
       var splitData:Array = data.split("\n");
 
-      //var own:String = data.split(',')[1];
-      
       return getWeeklyContributions(splitData[0], splitData[1]);
+    }
+
+    private function onLoaded(e:Event):void {
+      var decodedData:Array = parseData(_loader.data);
+      var ce:ContributionEvent = new ContributionEvent(ContributionEvent.DATA_RECEIVED, decodedData);
+
+      dispatchEvent(ce);
     }
 
     private function getWeeklyContributions(totalData:String, ownData:String):Array {
@@ -30,7 +52,6 @@ package  {
     }
 
     private function gitHubCharCodeToInt(c:uint):uint {
-
       // A = 0 .. Z = 25
       if ( ( c >= 65 ) && ( c <= 90 ) )
         return c - 65;

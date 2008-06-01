@@ -5,8 +5,13 @@ package {
 	public class Tribby extends Sprite {
 
 		public function Tribby() {
-			addChild(new TribbySkin.ProjectSprouts());
-			trace("Tribby instantiated!");
+      var c:ContributionFetcher = new ContributionFetcher();
+      c.addEventListener(ContributionEvent.DATA_RECEIVED, onDataLoaded);
+      c.loadProject('http://github.com/wycats/participation_graph/26');
 		}
+
+    private function onDataLoaded(e:ContributionEvent):void {
+      trace(e.data);
+    }
 	}
 }

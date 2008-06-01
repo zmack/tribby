@@ -54,8 +54,6 @@ package  {
       assertEquals(56, parsedData[14].total);
       assertEquals(93, parsedData[15].total);
       assertEquals(101, parsedData[16].total);
-      //assertEquals(33, parsedData[5].total);
-      //assertEquals(33, parsedData[6].total);
     }
 	}
 }

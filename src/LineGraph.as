@@ -3,11 +3,34 @@ package  {
 	
 	public class LineGraph extends Sprite {
     private var _data:Array;
+    private var _pointHeight:Number;
+    private var _pointWidth:Number;
+    private var _width:Number;
+    private var _height:Number;
 		
-		public function LineGraph(data:Array) {
+		public function LineGraph(data:Array, width:Number, height:Number) {
       _data = data;
+      _width = width;
+      _height = height * 0.9;
+
       render();
 		}
+
+    private function getPointHeight():Number {
+      return _pointHeight ||= (0.9*_height) / getMaxCommits();
+    }
+
+    private function getPointWidth():Number {
+      return _pointWidth ||= (0.9 * _width) / 52;
+    }
+
+    private function getMaxCommits():uint {
+      var max:uint = 0;
+      for( var i:uint = 0; i < _data.length; i++ ) {
+        if ( _data[i].total > max ) max = _data[i].total
+      }
+      return max;
+    }
 
     private function render():void {
       var x_offset:Number = 10;
@@ -17,28 +40,32 @@ package  {
     }
 
     private function drawOwnParticipation():void {
+      var pointH:Number = getPointHeight();
+      var pointW:Number = getPointWidth();
+
       this.graphics.beginFill(0x0000FF);
       this.graphics.lineStyle(1, 0x0000FF);
       for( var i:uint = 0; i < _data.length - 1; i++ ) {
-        this.graphics.drawCircle(i*10, 300 - _data[i].own, 2);
-        this.graphics.moveTo(i*10, 300 - _data[i].own);
-        this.graphics.lineTo((i+1)*10, 300 - _data[i+1].own);
+        this.graphics.drawCircle(i*pointW, _height - _data[i].own * pointH, 2);
+        this.graphics.moveTo(i*pointW, _height - _data[i].own * pointH);
+        this.graphics.lineTo((i+1)*pointW, _height - _data[i+1].own * pointH);
       }
-      this.graphics.drawCircle((_data.length - 1)*10, 300 - _data[_data.length - 1].own, 2);
+      this.graphics.drawCircle((_data.length - 1)*pointW, _height - _data[_data.length - 1].own * pointH, 2);
       this.graphics.endFill();
     }
 
     private function drawTotalParticipation():void {
+      var pointH:Number = getPointHeight();
+      var pointW:Number = getPointWidth();
+
       this.graphics.lineStyle(1, 0x00FFFF);
-      this.graphics.moveTo(0, 300);
+      this.graphics.moveTo(0, _height);
       this.graphics.beginFill(0x00FFFF);
       for( var i:uint = 0; i < _data.length - 1; i++ ) {
-        //this.graphics.drawCircle(i*10, 300 - _data[i].total, 2);
-        this.graphics.lineTo((i+1)*10, 300 - _data[i+1].total);
+        this.graphics.lineTo((i+1)*pointW, _height - _data[i+1].total * pointH);
       }
-      //this.graphics.drawCircle((_data.length - 1)*10, 300 - _data[_data.length - 1].total, 2);
-      this.graphics.lineTo(( _data.length-1 )* 10, 300);
-      this.graphics.lineTo(0, 300)
+      this.graphics.lineTo(( _data.length-1 ) * pointW, _height);
+      this.graphics.lineTo(0, _height)
       this.graphics.endFill();
     }
 	}

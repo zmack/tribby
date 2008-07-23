@@ -21,7 +21,7 @@ package  {
     }
 
     private function getPointWidth():Number {
-      return _pointWidth ||= (0.9 * _width) / 52;
+      return _pointWidth ||= ( _width - 20 ) / 52;
     }
 
     private function getMaxCommits():uint {
@@ -46,11 +46,13 @@ package  {
       this.graphics.beginFill(0x0000FF);
       this.graphics.lineStyle(1, 0x0000FF);
       for( var i:uint = 0; i < _data.length - 1; i++ ) {
-        this.graphics.drawCircle(i*pointW, _height - _data[i].own * pointH, 2);
+        if ( pointW > 5 ) 
+          this.graphics.drawCircle(i*pointW, _height - _data[i].own * pointH, 2);
         this.graphics.moveTo(i*pointW, _height - _data[i].own * pointH);
         this.graphics.lineTo((i+1)*pointW, _height - _data[i+1].own * pointH);
       }
-      this.graphics.drawCircle((_data.length - 1)*pointW, _height - _data[_data.length - 1].own * pointH, 2);
+      if ( pointW > 5 ) 
+        this.graphics.drawCircle((_data.length - 1)*pointW, _height - _data[_data.length - 1].own * pointH, 2);
       this.graphics.endFill();
     }
 

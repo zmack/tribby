@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>Tribby - The readme</title>
+  </head>
+  <body>
+    <h1>Tribby</h1>
+    <h2>What is it be ?</h2>
+    <p class="description">
+      Tribby is an embeddable contribution graph for github projects.
+    </p>
+
+    <h2>How does one make use of it ?</h2>
+    <p>
+      <pre>
+        &lt;object classid=&quot;clsid:d27cdb6e-ae6d-11cf-96b8-444553540000&quot;
+                codebase=&quot;http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0&quot;
+                width=&quot;380&quot;
+                height=&quot;50&quot;
+                align=&quot;middle&quot;
+                id=&quot;main&quot;&gt;
+        &lt;param name=&quot;allowScriptAccess&quot; value=&quot;sameDomain&quot; /&gt;
+        &lt;param name=&quot;movie&quot; value=&quot;bin/Tribby-debug.swf&quot; /&gt;
+        &lt;param name=&quot;quality&quot; value=&quot;high&quot; /&gt;
+        &lt;param name=&quot;bgcolor&quot; value=&quot;#A6CF00&quot; /&gt;
+        &lt;embed src=&quot;bin/Tribby-debug.swf&quot; 
+               width=&quot;380&quot; height=&quot;50&quot; 
+               autostart=&quot;false&quot; quality=&quot;high&quot; 
+               bgcolor=&quot;#A6CF00&quot; FlashVars=&quot;gitUser=zmack&gitProject=tribby&quot; 
+               name=&quot;main&quot; align=&quot;middle&quot; allowScriptAccess=&quot;sameDomain&quot; 
+               type=&quot;application/x-shockwave-flash&quot; pluginspage=&quot;http://www.macromedia.com/go/getflashplayer&quot; /&gt;
+        &lt;/object&gt;
+      </pre>
+      <p>Which pretty much looks like this:</p>
+      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+              codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0"
+              width="400"
+              height="60"
+              align="middle"
+              id="main">
+        <param name="allowScriptAccess" value="sameDomain" />
+        <param name="movie" value="bin/Tribby-debug.swf" />
+        <param name="quality" value="high" />
+        <param name="bgcolor" value="#A6CF00" />
+        <embed src="bin/Tribby-debug.swf" width="400" height="60" autostart="false" quality="high" bgcolor="#A6CF00" FlashVars="gitUser=sam&gitProject=dm-core" name="main" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+      </object>
+    </p>
+
+    <h2>Ok, so what else ?</h2>
+    <p>
+      <p>
+        You can make your own visualization modules using tribby. Well, using actionscript, but tribby does the boring job of
+        talking to github and translating their gibberish into sweet, sweet numbers for you to play with.
+      </p>
+      <p>
+        The data is in ContibutionEvent's <em>data</em> member, quite imaginatively. It's stored in the form of an array of objects. Each element is an object containing two items, namely 'own', which is the respective user's number of commits, and 'total', which is the total number of commits.
+      </p>
+
+      <p>
+        So to go through all the data you'd have to do something similar to this :
+        <pre>
+          data.forEach( function(item:Object, index:uint, arr:Array):void {
+            trace('Own commits: ' + item.own + '. Total commits: ' + item.total);
+          });
+        </pre>
+      </p>
+    </p>
+    
+  </body>
+</html>

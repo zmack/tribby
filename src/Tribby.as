@@ -1,19 +1,34 @@
 package {
 	import flash.display.Sprite;
-	import skins.TribbySkin;
+  import flash.external.ExternalInterface;
+  import flash.display.StageScaleMode;
+  import flash.display.StageAlign;
+  import flash.display.LoaderInfo;
 	
 	public class Tribby extends Sprite {
 
 		public function Tribby() {
+      stage.scaleMode = StageScaleMode.NO_SCALE;
+      stage.align = StageAlign.TOP_LEFT;
+
       var c:ContributionFetcher = new ContributionFetcher();
       c.addEventListener(ContributionEvent.DATA_RECEIVED, onDataLoaded);
-      c.loadProject('http://github.com/technoweenie/attachment_fu/graphs/owner_participation');
+      c.loadProject(getProjectUrl());
 		}
 
+    private function getProjectUrl():String {
+      var params:Object = LoaderInfo(this.loaderInfo).parameters;
+      var user:String = params.gitUser || 'zmack';
+      var project:String = params.gitProject || 'tribby';
+
+      return 'http://github.com/' + user + '/' + project + '/graphs/owner_participation';
+    }
+      
     private function onDataLoaded(e:ContributionEvent):void {
       var graph:LineGraph = new LineGraph(e.data, stage.stageWidth, stage.stageHeight);
-
       addChild(graph);
+             
+      graph.x = 10;
     }
 	}
 }

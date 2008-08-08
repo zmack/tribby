@@ -3,6 +3,9 @@ package bargraph {
   import flash.display.Sprite;
   import flash.text.TextField;
   import flash.text.TextFormat;
+  import flash.geom.Point;
+  import flash.text.AntiAliasType;
+  import flash.text.TextFormatAlign;
 	
 	public class Tooltip extends Sprite {
     private var _textField:TextField;
@@ -30,22 +33,26 @@ package bargraph {
       var tf:TextField = new TextField();
 
       tf.defaultTextFormat = this.createTextFormat();
+      tf.sharpness = 400;
       tf.embedFonts = true;
+      tf.width = 100;
+      tf.height = 20;
 
       return tf;
     }
 
     private function render():void {
       this.graphics.beginFill(0);
-      this.graphics.drawRoundRect(0, 0, 40, 10, 15, 15);
+      this.graphics.drawRoundRect(0, 0, 100, 20, 15, 15);
       this.graphics.endFill();
     }
 
     private function createTextFormat():TextFormat {
       var tf:TextFormat = new TextFormat();
-      tf.size = 8;
+      tf.size = 12;
       tf.font = 'Pixel';
       tf.color = 0xFFFFFF;
+      tf.align = TextFormatAlign.CENTER;
 
       return tf;
     }

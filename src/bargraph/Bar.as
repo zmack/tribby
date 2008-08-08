@@ -6,7 +6,10 @@ package bargraph {
     public var value:uint;
     public var barWidth:Number;
     public var color:uint;
+    public var pixelHeight:Number;
+    public var max:Number;
     
+    private var ghostBar:Sprite;
     private var totalBar:Sprite;
     private var valueBar:Sprite;
 
@@ -17,14 +20,20 @@ package bargraph {
       this.value = options.value;
       this.barWidth = options.width;
       this.color = options.color || 0xFFFFFF;
+      this.pixelHeight = options.pixelHeight || 1;
+      this.max = options.max || 0;
 
       this.createBars();
 		} 
 
     public function createBars():void {
-      this.totalBar = this.createBar(this.barWidth, this.total);
-      this.valueBar = this.createBar(this.barWidth, this.value);
+      this.totalBar = this.createBar(this.barWidth, this.total * this.pixelHeight);
+      this.totalBar.alpha = 0.4;
+      this.valueBar = this.createBar(this.barWidth, this.value * this.pixelHeight);
+      this.ghostBar = this.createBar(this.barWidth, this.max);
+      this.ghostBar.alpha = 0;
 
+      addChild(this.ghostBar);
       addChild(this.totalBar);
       addChild(this.valueBar);
     }

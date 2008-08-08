@@ -18,14 +18,15 @@ package {
 
     private function getProjectUrl():String {
       var params:Object = LoaderInfo(this.loaderInfo).parameters;
-      var user:String = params.gitUser || 'zmack';
-      var project:String = params.gitProject || 'tribby';
+      var user:String = params.gitUser || 'rails';
+      var project:String = params.gitProject || 'rails';
 
       return 'http://github.com/' + user + '/' + project + '/graphs/owner_participation';
     }
       
     private function onDataLoaded(e:ContributionEvent):void {
-      var graph:LineGraph = new LineGraph(e.data, stage.stageWidth, stage.stageHeight);
+      //var graph:LineGraph = new LineGraph(e.data, stage.stageWidth, stage.stageHeight);
+      var graph:BarGraph = new BarGraph(e.data, stage.stageWidth, stage.stageHeight);
       addChild(graph);
              
       graph.x = 10;

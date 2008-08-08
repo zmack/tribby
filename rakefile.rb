@@ -1,7 +1,7 @@
 require 'sprout'
 # Optionally load gems from a server other than rubyforge:
 # set_sources 'http://gems.projectsprouts.org'
-sprout 'as3', '0.2.3'
+sprout 'as3'
 
 ############################################
 # Configure your Project Model

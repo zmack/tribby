@@ -4,10 +4,13 @@ package {
   import flash.display.StageScaleMode;
   import flash.display.StageAlign;
   import flash.display.LoaderInfo;
+
+  import skins.TribbySkin;
 	
 	public class Tribby extends Sprite {
 
 		public function Tribby() {
+      new skins.TribbySkin.PixelFont();
       stage.scaleMode = StageScaleMode.NO_SCALE;
       stage.align = StageAlign.TOP_LEFT;
 
@@ -28,8 +31,6 @@ package {
       //var graph:LineGraph = new LineGraph(e.data, stage.stageWidth, stage.stageHeight);
       var graph:BarGraph = new BarGraph(e.data, stage.stageWidth, stage.stageHeight);
       addChild(graph);
-             
-      graph.x = 10;
     }
 	}
 }

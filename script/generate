@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'sprout'
-sprout 'sprout-as3-bundle', '0.2.3'
+sprout 'sprout-as3-bundle'
 
 # Add a class name if TestSuites were generated
 if(ARGV.size == 1 && ARGV[0] == 'suite')

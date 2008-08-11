@@ -34,10 +34,10 @@ package  {
                                 width: this.itemWidth, 
                                 max: this.maxItemHeight, 
                                 pixelHeight: this.itemCommitHeight, 
-                                color: 0xFF00FF });
+                                normal: 0xFF00FF,
+                                hover: 0x00FF00 });
 
         bar.x = this.horizontalPadding + index * (this.itemWidth + 1);
-        trace(bar.x);
         bar.y = this._height * .9;
         this.addChild(bar);
         bar.addEventListener(MouseEvent.MOUSE_OVER, onBarOver);

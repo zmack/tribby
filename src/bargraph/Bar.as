@@ -1,13 +1,17 @@
 package bargraph {
   import flash.display.Sprite;
-	
+  import flash.events.Event;
+  import flash.events.MouseEvent;
+
 	public class Bar extends Sprite {
 		public var total:uint;
     public var value:uint;
     public var barWidth:Number;
-    public var color:uint;
     public var pixelHeight:Number;
     public var max:Number;
+    public var color:uint;
+    public var hoverColor:uint;
+    public var normalColor:uint;
     
     private var ghostBar:Sprite;
     private var totalBar:Sprite;
@@ -19,18 +23,28 @@ package bargraph {
       this.total = options.total;
       this.value = options.value;
       this.barWidth = options.width;
-      this.color = options.color || 0xFFFFFF;
+      this.normalColor = options.normal || 0xFF00FF;
+      this.hoverColor = options.hover || 0x00FF00;
       this.pixelHeight = options.pixelHeight || 1;
       this.max = options.max || 0;
 
       this.createBars();
+      this.addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+      this.addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
 		} 
 
     public function createBars():void {
-      this.totalBar = this.createBar(this.barWidth, this.total * this.pixelHeight);
+      this.color = this.normalColor;
+
+      this.totalBar = new Sprite();
+      this.drawBar(this.totalBar, this.barWidth, this.total * this.pixelHeight);
       this.totalBar.alpha = 0.4;
-      this.valueBar = this.createBar(this.barWidth, this.value * this.pixelHeight);
-      this.ghostBar = this.createBar(this.barWidth, this.max);
+
+      this.valueBar = new Sprite();
+      this.drawBar(this.valueBar, this.barWidth, this.value * this.pixelHeight);
+
+      this.ghostBar = new Sprite();
+      this.drawBar(this.ghostBar, this.barWidth, this.max);
       this.ghostBar.alpha = 0;
 
       addChild(this.ghostBar);
@@ -38,14 +52,30 @@ package bargraph {
       addChild(this.valueBar);
     }
 
-    public function createBar(width:uint, height:uint):Sprite {
-      //trace('creating ' + width + ', ' + height);
-      var s:Sprite = new Sprite();
+    public function redraw():void {
+      this.drawBar(this.totalBar, this.barWidth, this.total * this.pixelHeight);
+      this.drawBar(this.valueBar, this.barWidth, this.value * this.pixelHeight);
+      this.drawBar(this.ghostBar, this.barWidth, this.max);
+    }
+
+    public function drawBar(s:Sprite, width:uint, height:uint):Sprite {
+      s.graphics.clear();
       s.graphics.beginFill(this.color);
       s.graphics.drawRect(0, 0, width, -height);
       s.graphics.endFill();
 
       return s;
     }
+
+    private function onMouseOver(e:MouseEvent):void {
+      this.color = this.hoverColor;
+      this.redraw();
+    }
+
+    private function onMouseOut(e:MouseEvent):void {
+      this.color = this.normalColor;
+      this.redraw();
+    }
+
 	}
 }

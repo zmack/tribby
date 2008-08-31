@@ -16,6 +16,7 @@ package bargraph {
     private var ghostBar:Sprite;
     private var totalBar:Sprite;
     private var valueBar:Sprite;
+    private var markerBar:Sprite;
 
 		public function Bar(options:Object) {
       options ||= {};
@@ -47,9 +48,14 @@ package bargraph {
       this.drawBar(this.ghostBar, this.barWidth, this.max);
       this.ghostBar.alpha = 0;
 
+      this.markerBar = new Sprite();
+      this.drawBar(this.markerBar, this.barWidth, 1);
+      this.markerBar.y = 2;
+
       addChild(this.ghostBar);
       addChild(this.totalBar);
       addChild(this.valueBar);
+      addChild(this.markerBar);
     }
 
     public function redraw():void {

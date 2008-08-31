@@ -10,6 +10,7 @@ package  {
     private var _pointWidth:Number;
     private var _width:Number;
     private var _height:Number;
+    private var _weeks:uint = 52;
 
     private var _itemWidth:Number;
     private var _itemHeight:Number;
@@ -45,7 +46,7 @@ package  {
     }
 
     private function get itemWidth():Number {
-      return this._itemWidth ||= Math.floor((this._width - 51) / 52);
+      return this._itemWidth ||= Math.floor((this._width - (this._weeks - 1)) / this._weeks);
     }
 
     private function get itemCommitHeight():Number {
@@ -57,7 +58,7 @@ package  {
     }
 
     private function get horizontalPadding():Number {
-      return this._horizontalPadding ||= ( ( this._width - 51 ) - ( this._itemWidth * 52 ) ) / 2;
+      return this._horizontalPadding ||= ( ( this._width - (this._weeks - 1)) - ( this._itemWidth * this._weeks ) ) / 2;
     }
 
     private function getMaxCommits():uint {
@@ -70,9 +71,13 @@ package  {
       return max;
     }
 
+    private function filterData():void {
+      // should i filter initial weeks with 0 commits ? =/
+    }
+
     private function onBarOver(e:MouseEvent):void {
       var bar:Object = e.target.parent;
-      this._tooltip.text = bar.value + ' commits of ' + bar.total;
+      this._tooltip.text = bar.value + ' commit' + ((bar.value == 1)?'':'s') + ' of ' + bar.total;
     }
 	}
 }

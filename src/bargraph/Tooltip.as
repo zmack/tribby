@@ -33,6 +33,7 @@ package bargraph {
       var tf:TextField = new TextField();
 
       tf.defaultTextFormat = this.createTextFormat();
+      tf.antiAliasType= AntiAliasType.NORMAL;
       tf.sharpness = 400;
       tf.embedFonts = true;
       tf.width = 100;
@@ -43,14 +44,14 @@ package bargraph {
 
     private function render():void {
       this.graphics.beginFill(0);
-      this.graphics.drawRoundRect(0, 0, 100, 20, 15, 15);
+      this.graphics.drawRoundRect(0, 0, 100, 18, 15, 15);
       this.graphics.endFill();
     }
 
     private function createTextFormat():TextFormat {
       var tf:TextFormat = new TextFormat();
-      tf.size = 12;
-      tf.font = 'Pixel';
+      tf.size = 13;
+      tf.font = 'Ventouse';
       tf.color = 0xFFFFFF;
       tf.align = TextFormatAlign.CENTER;
 

@@ -10,7 +10,7 @@ package {
 	public class Tribby extends Sprite {
 
 		public function Tribby() {
-      new skins.TribbySkin.PixelFont();
+      new skins.TribbySkin.VentouseFont();
       stage.scaleMode = StageScaleMode.NO_SCALE;
       stage.align = StageAlign.TOP_LEFT;
 

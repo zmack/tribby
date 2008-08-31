@@ -1,6 +1,7 @@
 package skins {
 	public class TribbySkin {
-    [Embed(source='Tribby/redensek.ttf', fontName="Pixel", fontFamily="Pixel", advancedAntiAliasing="true", mimeType="application/x-font-truetype")]    
+    [Embed(source='Tribby/redalert.ttf', fontName="Ventouse", fontFamily="Ventouse", mimeType="application/x-font-truetype")]    
+    public static var VentouseFont:Class;
     public static var PixelFont:Class;
 	}
 }
